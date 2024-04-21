@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WhiteLagoon.Domain.Entities
 {
-    internal class Villa
+    public class Villa
     {
         public int Id { get; set; }
         public required string Name { get; set; }

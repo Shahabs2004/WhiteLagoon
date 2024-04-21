@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using WhiteLagoon.Domain.Entities ;
 
 namespace WhiteLagoon.Inrfastructure.Data
 {
@@ -13,5 +14,8 @@ namespace WhiteLagoon.Inrfastructure.Data
         {
             
         }
+
+        public DbSet<Villa> Villas { get; set; }
     }
+
 }
