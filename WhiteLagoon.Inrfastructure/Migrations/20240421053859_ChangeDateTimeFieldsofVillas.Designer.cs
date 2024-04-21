@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WhiteLagoon.Inrfastructure.Data;
 
@@ -11,9 +12,11 @@ using WhiteLagoon.Inrfastructure.Data;
 namespace WhiteLagoon.Inrfastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240421053859_ChangeDateTimeFieldsofVillas")]
+    partial class ChangeDateTimeFieldsofVillas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,38 +61,6 @@ namespace WhiteLagoon.Inrfastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Villas");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
-                            ImageUrl = "https://placehold.co/600x400",
-                            Name = "Royal Villa",
-                            Occupancy = 4,
-                            Price = 200.0,
-                            Sqft = 550
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
-                            ImageUrl = "https://placehold.co/600x401",
-                            Name = "Premium Pool Villa",
-                            Occupancy = 4,
-                            Price = 300.0,
-                            Sqft = 550
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
-                            ImageUrl = "https://placehold.co/600x402",
-                            Name = "Luxury Pool Villa",
-                            Occupancy = 4,
-                            Price = 400.0,
-                            Sqft = 750
-                        });
                 });
 #pragma warning restore 612, 618
         }
