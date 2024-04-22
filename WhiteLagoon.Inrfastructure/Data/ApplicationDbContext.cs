@@ -16,7 +16,7 @@ namespace WhiteLagoon.Inrfastructure.Data
         }
 
         public DbSet<Villa> Villas { get; set; }
-        //seed some data into villas
+        //change next function "OnModelCreating" seeds to have Date_Created and Date_Updated values too
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Villa>().HasData(
@@ -29,6 +29,8 @@ namespace WhiteLagoon.Inrfastructure.Data
                     Occupancy = 4,
                     Price = 200,
                     Sqft = 550,
+                    Created_Date = DateTime.Now,
+                    Update_Date = DateTime.Now
                 },
                 new Villa
                 {
@@ -39,6 +41,8 @@ namespace WhiteLagoon.Inrfastructure.Data
                     Occupancy = 4,
                     Price = 300,
                     Sqft = 550,
+                    Created_Date = DateTime.Now,
+                    Update_Date = DateTime.Now
                 },
                 new Villa
                 {
@@ -49,6 +53,8 @@ namespace WhiteLagoon.Inrfastructure.Data
                     Occupancy = 4,
                     Price = 400,
                     Sqft = 750,
+                    Created_Date = DateTime.Now,
+                    Update_Date = DateTime.Now
                 }
                 );
         }
