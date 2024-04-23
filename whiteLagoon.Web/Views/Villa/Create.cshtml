@@ -1,1 +1,51 @@
-﻿<h1>Create Villa</h1>
+﻿@model WhiteLagoon.Domain.Entities.Villa
+<h1>Create Villa</h1>
+<div class="w-100 card border-0 p-4">
+    <div class="card-header bg-success bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Create Villa</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body border p-4">
+        <form method="post" class="row">
+            <div class="p-3">
+                <div class="form-floating py-1 col-12">
+                    <input type="text" asp-for="Name" class="form-control border shadow" id="Name" name="Name" required>
+                    <label asp-for="Name" class="ms-2"></label>
+                </div>
+                <div class="form-floating py-1 col-12">
+                    <textarea class="form-control border shadow" id="Description" name="Description"></textarea>
+                    <label asp-for="Description" class="ms-2"></label>
+                </div>
+                <div class="form-floating py-1 col-12">
+                    <input type="number" class="form-control border shadow" id="Price" name="Price" required>
+                    <label asp-for="Price" class="ms-2"></label>
+                </div>
+                <div class="form-floating py-1 col-12">
+                    <input type="number" class="form-control border shadow" id="Sqft" name="Sqft" required>
+                    <label asp-for="Sqft" class="ms-2"></label>
+                </div>
+                <div class="form-floating py-1 col-12">
+                    <input type="number" class="form-control border shadow" id="Occupancy" name="Occupancy" required>
+                    <label asp-for="Occupancy" class="ms-2"></label>
+                </div>
+                <div class="form-floating py-1 col-12">
+                    <input type="text" class="form-control border shadow" id="ImageUrl" name="ImageUrl">
+                    <label asp-for="ImageUrl" class="ms-2"></label>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-6 col-md-3">
+                        <button type="submit" class="btn btn-success w-100"><i class="bi bi-check-circle"></i> Create</button>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a asp-controller="Villa" asp-action="Index" class="btn btn-secondary w-100"><i class="bi bi-x-circle"></i> Cancel</a>
+                    </div>
+                </div>
+
+                
+            </div>
+        </form>
+    </div>
+</div>
