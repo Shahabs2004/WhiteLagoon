@@ -21,4 +21,8 @@
     <ProjectReference Include="..\WhiteLagoon.Inrfastructure\WhiteLagoon.Inrfastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\img\" />
+  </ItemGroup>
+
 </Project>

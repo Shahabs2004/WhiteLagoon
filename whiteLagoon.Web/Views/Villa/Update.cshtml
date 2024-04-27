@@ -1,10 +1,9 @@
 ﻿@model WhiteLagoon.Domain.Entities.Villa
-<h1>Create Villa</h1>
 <div class="w-100 card border-0 p-4">
     <div class="card-header bg-success bg-gradient ml-0 py-3">
         <div class="row">
             <div class="col-12 text-center">
-                <h2 class="text-white py-2">Create Villa</h2>
+                <h2 class="text-white py-2">Update Villa</h2>
             </div>
         </div>
     </div>
@@ -12,39 +11,40 @@
         <form method="post" class="row">
             <div class="p-3">
                 <div asp-validation-summary="All" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
                 <div class="form-floating py-1 col-12">
                     <input type="text" asp-for="Name" class="form-control border shadow" id="Name" name="Name" required>
                     <label asp-for="Name" class="ms-2"></label>
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-1 col-12">
-                    <textarea class="form-control border shadow" id="Description" name="Description"></textarea>
+                    <textarea asp-for="Description" class="form-control border shadow" id="Description" name="Description"></textarea>
                     <label asp-for="Description" class="ms-2"></label>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-1 col-12">
-                    <input type="number" class="form-control border shadow" id="Price" name="Price" required>
+                    <input asp-for="Price" type="number" class="form-control border shadow" id="Price" name="Price" required>
                     <label asp-for="Price" class="ms-2"></label>
                     <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-1 col-12">
-                    <input type="number" class="form-control border shadow" id="Sqft" name="Sqft" required>
+                    <input asp-for="Sqft" type="number" class="form-control border shadow" id="Sqft" name="Sqft" required>
                     <label asp-for="Sqft" class="ms-2"></label>
                     <span asp-validation-for="Sqft" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-1 col-12">
-                    <input type="number" class="form-control border shadow" id="Occupancy" name="Occupancy" required>
+                    <input asp-for="Occupancy" type="number" class="form-control border shadow" id="Occupancy" name="Occupancy" required>
                     <label asp-for="Occupancy" class="ms-2"></label>
                     <span asp-validation-for="Occupancy" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-1 col-12">
-                    <input type="text" class="form-control border shadow" id="ImageUrl" name="ImageUrl">
+                    <input asp-for="ImageUrl" type="text" class="form-control border shadow" id="ImageUrl" name="ImageUrl">
                     <label asp-for="ImageUrl" class="ms-2"></label>
                     <span asp-validation-for="ImageUrl" class="text-danger"></span>
                 </div>
                 <div class="row pt-2">
                     <div class="col-6 col-md-3">
-                        <button type="submit" class="btn btn-success w-100"><i class="bi bi-check-circle"></i> Create</button>
+                        <button type="submit" class="btn btn-success w-100"><i class="bi bi-check-circle"></i> Update</button>
                     </div>
                     <div class="col-6 col-md-3">
                         <a asp-controller="Villa" asp-action="Index" class="btn btn-secondary w-100"><i class="bi bi-x-circle"></i> Cancel</a>
@@ -57,6 +57,6 @@
 @section Scripts
 {
     @{
-        <partial name="_ValidationScriptsPartial"/>
+        <partial name="_ValidationScriptsPartial" />
     }
 }
