@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WhiteLagoon.Domain.Entities;
 using WhiteLagoon.Inrfastructure.Data;
@@ -27,6 +28,13 @@ namespace whiteLagoon.Web.Controllers
         // Defining the Create action method
         public IActionResult Create()
         {
+            IEnumerable<SelectListItem> list = _db.Villas.ToList().Select(u=> new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                }
+                );
+            ViewBag.VillaList = list;
             return View(); // Returning the view
         }
 
