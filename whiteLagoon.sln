@@ -3,13 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "whiteLagoon.Web", "whiteLagoon.Web\whiteLagoon.Web.csproj", "{01898B36-D7FA-4F34-B0EC-632F8ECE6C1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "whiteLagoon.Web", "whiteLagoon.Web\whiteLagoon.Web.csproj", "{01898B36-D7FA-4F34-B0EC-632F8ECE6C1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhiteLagoon.Domain", "WhiteLagoon.Domain\WhiteLagoon.Domain.csproj", "{49EB4541-F939-4767-B5F1-15FC82F36E2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhiteLagoon.Domain", "WhiteLagoon.Domain\WhiteLagoon.Domain.csproj", "{49EB4541-F939-4767-B5F1-15FC82F36E2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhiteLagoon.Application", "WhiteLagoon.Application\WhiteLagoon.Application.csproj", "{F31DD27F-BC6C-4332-86B0-3F6970A3D9A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhiteLagoon.Application", "WhiteLagoon.Application\WhiteLagoon.Application.csproj", "{F31DD27F-BC6C-4332-86B0-3F6970A3D9A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhiteLagoon.Inrfastructure", "WhiteLagoon.Inrfastructure\WhiteLagoon.Inrfastructure.csproj", "{511622E1-8DC5-4284-9D83-45D64EC9E9F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhiteLagoon.Inrfastructure", "WhiteLagoon.Inrfastructure\WhiteLagoon.Inrfastructure.csproj", "{511622E1-8DC5-4284-9D83-45D64EC9E9F0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B6E06A70-A35D-486D-A3E4-94158104066D}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
