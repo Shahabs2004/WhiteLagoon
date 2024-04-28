@@ -44,10 +44,12 @@ namespace whiteLagoon.Web.Controllers
             {
                 _db.Villas.Add(obj); // Adding the villa to the database
                 _db.SaveChanges(); // Saving the changes to the database
+                TempData["Success"] = "Villa Created Successfully";
                 return RedirectToAction("Index"); // Redirecting to the Index action method
             }
             else
             {
+                TempData["Error"] = "Error occurred while creating the villa";
                 return View(obj); // Returning the view with the villa object
             }
         }
@@ -58,9 +60,9 @@ namespace whiteLagoon.Web.Controllers
             // Getting the villa with the specified id from the database
             Villa? obj = _db.Villas.FirstOrDefault((u => u.Id == villaId));
             // Checking if the villa is null
-            if (obj == null)
+            if (obj is null)
             {
-                return RedirectToAction("Error","Home"); // Returning a NotFound result
+                return RedirectToAction("Error", "Home"); // Returning a NotFound result
             }
 
             return View(obj); // Returning the view with the villa object
@@ -73,9 +75,41 @@ namespace whiteLagoon.Web.Controllers
             {
                 _db.Villas.Update(obj); // Adding the villa to the database
                 _db.SaveChanges(); // Saving the changes to the database
+                TempData["Success"] = "Villa Updated Successfully";
                 return RedirectToAction("Index"); // Redirecting to the Index action method
             }
 
+            TempData["Error"] = "Error occurred while updating the villa";
+            return View();
+        }
+
+        // Defining the Delete action method
+        public IActionResult Delete(int villaId)
+        {
+            // Getting the villa with the specified id from the database
+            Villa? obj = _db.Villas.FirstOrDefault((u => u.Id == villaId));
+            // Checking if the villa is null
+            if (obj is null)
+            {
+                return RedirectToAction("Error", "Home"); // Returning a NotFound result
+            }
+
+            return View(obj); // Returning the view with the villa object
+        }
+        [HttpPost]
+        public IActionResult Delete(Villa obj)
+        {
+            Villa? objFromDb = _db.Villas.FirstOrDefault((u => u.Id == obj.Id));
+            // Checking if the ModelState is valid
+            if (objFromDb is not null)
+            {
+                _db.Villas.Remove(objFromDb); // Remove the villa from the database
+                _db.SaveChanges(); // Saving the changes to the database
+                TempData["Success"] = "Villa Deleted Successfully";
+                return RedirectToAction("Index"); // Redirecting to the Index action method
+            }
+
+            TempData["Error"] = "Error occurred while deleting the villa";
             return View();
         }
     }
