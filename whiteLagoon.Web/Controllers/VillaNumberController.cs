@@ -22,7 +22,7 @@ namespace whiteLagoon.Web.Controllers
         // Defining the Index action method
         public IActionResult Index()
         {
-            var villasNumbers = _db.VillaNumbers.ToList(); // Getting all villas from the database and converting to a list
+            var villasNumbers = _db.VillaNumbers.Include(u=>u.Villa).ToList(); // Getting all villas from the database and converting to a list
             return View(villasNumbers); // Returning the view with the list of villas
         }
 
