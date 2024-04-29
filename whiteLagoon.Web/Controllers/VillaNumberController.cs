@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WhiteLagoon.Domain.Entities;
 using WhiteLagoon.Inrfastructure.Data;
+using whiteLagoon.Web.ViewModels;
 
 namespace whiteLagoon.Web.Controllers
 {
@@ -28,14 +29,15 @@ namespace whiteLagoon.Web.Controllers
         // Defining the Create action method
         public IActionResult Create()
         {
-            IEnumerable<SelectListItem> list = _db.Villas.ToList().Select(u=> new SelectListItem
+            VillaNumberVM villaNumberVM = new()
+            {
+                VillaList =  _db.Villas.ToList().Select(u=> new SelectListItem
                 {
                     Text = u.Name,
                     Value = u.Id.ToString()
-                }
-                );
-            ViewBag.VillaList = list;
-            return View(); // Returning the view
+                })
+            };
+            return View(villaNumberVM); // Returning the view
         }
 
         // Defining the Create action method that responds to HTTP POST requests
