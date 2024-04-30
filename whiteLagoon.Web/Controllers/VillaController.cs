@@ -45,7 +45,7 @@ namespace whiteLagoon.Web.Controllers
                 _db.Villas.Add(obj); // Adding the villa to the database
                 _db.SaveChanges(); // Saving the changes to the database
                 TempData["Success"] = "Villa Created Successfully";
-                return RedirectToAction("Index"); // Redirecting to the Index action method
+                return RedirectToAction(nameof(Index)); // Redirecting to the Index action method
             }
             else
             {
@@ -76,7 +76,7 @@ namespace whiteLagoon.Web.Controllers
                 _db.Villas.Update(obj); // Adding the villa to the database
                 _db.SaveChanges(); // Saving the changes to the database
                 TempData["Success"] = "Villa Updated Successfully";
-                return RedirectToAction("Index"); // Redirecting to the Index action method
+                return RedirectToAction(nameof(Index)); // Redirecting to the Index action method
             }
 
             TempData["Error"] = "Error occurred while updating the villa";
@@ -106,7 +106,7 @@ namespace whiteLagoon.Web.Controllers
                 _db.Villas.Remove(objFromDb); // Remove the villa from the database
                 _db.SaveChanges(); // Saving the changes to the database
                 TempData["Success"] = "Villa Deleted Successfully";
-                return RedirectToAction("Index"); // Redirecting to the Index action method
+                return RedirectToAction(nameof(Index)); // Redirecting to the Index action method
             }
 
             TempData["Error"] = "Error occurred while deleting the villa";

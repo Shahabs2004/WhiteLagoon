@@ -42,81 +42,109 @@ namespace whiteLagoon.Web.Controllers
 
         // Defining the Create action method that responds to HTTP POST requests
         [HttpPost]
-        public IActionResult Create(VillaNumber obj)
+        public IActionResult Create(VillaNumberVM obj)
         {
-            //ModelState.Remove("Villa"); Commented out Due to Added Annotation to Property
             // Checking if the ModelState is valid
-            if (ModelState.IsValid)
+            bool roomNumberExists =_db.VillaNumbers.Any(u => u.Villa_Number == obj.VillaNumber.Villa_Number);
+            if (ModelState.IsValid && !roomNumberExists)
             {
-                _db.VillaNumbers.Add(obj); // Adding the villa to the database
+                _db.VillaNumbers.Add(obj.VillaNumber); // Adding the villa to the database
                 _db.SaveChanges(); // Saving the changes to the database
                 TempData["Success"] = "Villa number Created Successfully";
-                return RedirectToAction("Index"); // Redirecting to the Index action method
+                return RedirectToAction(nameof(Index)); // Redirecting to the Index action method
             }
-            else
+            if(roomNumberExists)
             {
-                TempData["Error"] = "Error occurred while creating the villa number ";
-                return View(obj); // Returning the view with the villa object
+                TempData["Error"] = "Duplicate Room Number Detected.Please Select another room Number";
             }
+
+            obj.VillaList = _db.Villas.ToList().Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString()
+            });
+            return View(obj); // Returning the view with the villa object
         }
 
-        // Defining the Update action method
-        public IActionResult Update(int villaId)
+         //Defining the Update action method
+        public IActionResult Update(int villaNumberId)
         {
-            // Getting the villa with the specified id from the database
-            Villa? obj = _db.Villas.FirstOrDefault((u => u.Id == villaId));
+            VillaNumberVM villaNumberVM = new()
+            {
+                VillaList = _db.Villas.ToList().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                }),
+                VillaNumber = _db.VillaNumbers.FirstOrDefault(u=>u.Villa_Number == villaNumberId)
+            };
             // Checking if the villa is null
-            if (obj is null)
+            if (villaNumberVM.VillaNumber is null)
             {
                 return RedirectToAction("Error", "Home"); // Returning a NotFound result
             }
 
-            return View(obj); // Returning the view with the villa object
+            return View(villaNumberVM); // Returning the view with the villa object
         }
         [HttpPost]
-        public IActionResult Update(Villa obj)
+        public IActionResult Update(VillaNumberVM villaNumberVM)
         {
             // Checking if the ModelState is valid
-            if (ModelState.IsValid && obj.Id > 0)
+            
+            if (ModelState.IsValid)
             {
-                _db.Villas.Update(obj); // Adding the villa to the database
+                _db.VillaNumbers.Update(villaNumberVM.VillaNumber); // Adding the villa to the database
                 _db.SaveChanges(); // Saving the changes to the database
-                TempData["Success"] = "Villa Updated Successfully";
-                return RedirectToAction("Index"); // Redirecting to the Index action method
+                TempData["Success"] = "Villa number Updated Successfully";
+                return RedirectToAction(nameof(Index)); // Redirecting to the Index action method
             }
 
-            TempData["Error"] = "Error occurred while updating the villa";
-            return View();
+
+            villaNumberVM.VillaList = _db.Villas.ToList().Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString()
+            });
+            return View(villaNumberVM); // Returning the view with the villa object
         }
 
         // Defining the Delete action method
-        public IActionResult Delete(int villaId)
+        public IActionResult Delete(int villaNumberId)
         {
-            // Getting the villa with the specified id from the database
-            Villa? obj = _db.Villas.FirstOrDefault((u => u.Id == villaId));
+            VillaNumberVM villaNumberVM = new()
+            {
+                VillaList = _db.Villas.ToList().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                }),
+                VillaNumber = _db.VillaNumbers.FirstOrDefault(u => u.Villa_Number == villaNumberId)
+            };
             // Checking if the villa is null
-            if (obj is null)
+            if (villaNumberVM.VillaNumber is null)
             {
                 return RedirectToAction("Error", "Home"); // Returning a NotFound result
             }
 
-            return View(obj); // Returning the view with the villa object
+            return View(villaNumberVM); // Returning the view with the villa object
         }
+
         [HttpPost]
-        public IActionResult Delete(Villa obj)
+        public IActionResult Delete(VillaNumberVM villaNumberVM)
         {
-            Villa? objFromDb = _db.Villas.FirstOrDefault((u => u.Id == obj.Id));
+            VillaNumber? objFromDb = _db.VillaNumbers
+                .FirstOrDefault(u => u.Villa_Number == villaNumberVM.VillaNumber.Villa_Number);
             // Checking if the ModelState is valid
             if (objFromDb is not null)
             {
-                _db.Villas.Remove(objFromDb); // Remove the villa from the database
+                _db.VillaNumbers.Remove(objFromDb); // Remove the villa from the database
                 _db.SaveChanges(); // Saving the changes to the database
-                TempData["Success"] = "Villa Deleted Successfully";
-                return RedirectToAction("Index"); // Redirecting to the Index action method
+                TempData["Success"] = "Villa Number Deleted Successfully";
+                return RedirectToAction(nameof(Index)); // Redirecting to the Index action method
             }
 
-            TempData["Error"] = "Error occurred while deleting the villa";
+            TempData["Error"] = "Error occurred while deleting the villa Number";
             return View();
-        }
+        } 
     }
 }
