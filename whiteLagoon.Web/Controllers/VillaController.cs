@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WhiteLagoon.Application.Common.Interfaces;
 using WhiteLagoon.Domain.Entities;
 using WhiteLagoon.Inrfastructure.Data;
 
@@ -8,18 +9,18 @@ namespace whiteLagoon.Web.Controllers
     public class VillaController : Controller
     {
         // Declaring a private readonly field of type ApplicationDbContext
-        private readonly ApplicationDbContext _db;
+        private readonly IVillaRepository _villaRepo;
 
         // Defining the constructor for the VillaController class
-        public VillaController(ApplicationDbContext db)
+        public VillaController(IVillaRepository villaRepo)
         {
-            _db = db; // Assigning the passed in db value to the _db field
+            _villaRepo = villaRepo;
         }
 
         // Defining the Index action method
         public IActionResult Index()
         {
-            var villas = _db.Villas.ToList(); // Getting all villas from the database and converting to a list
+            var villas = _villaRepo.GetAll(); // Getting all villas from the database and converting to a list
             return View(villas); // Returning the view with the list of villas
         }
 
@@ -42,8 +43,8 @@ namespace whiteLagoon.Web.Controllers
             // Checking if the ModelState is valid
             if (ModelState.IsValid)
             {
-                _db.Villas.Add(obj); // Adding the villa to the database
-                _db.SaveChanges(); // Saving the changes to the database
+                _villaRepo.Add(obj); // Adding the villa to the database
+                _villaRepo.Save(); // Saving the changes to the database
                 TempData["Success"] = "Villa Created Successfully";
                 return RedirectToAction(nameof(Index)); // Redirecting to the Index action method
             }
@@ -58,7 +59,7 @@ namespace whiteLagoon.Web.Controllers
         public IActionResult Update(int villaId)
         {
             // Getting the villa with the specified id from the database
-            Villa? obj = _db.Villas.FirstOrDefault((u => u.Id == villaId));
+            Villa? obj = _villaRepo.Get(u => u.Id == villaId);
             // Checking if the villa is null
             if (obj is null)
             {
@@ -73,8 +74,8 @@ namespace whiteLagoon.Web.Controllers
             // Checking if the ModelState is valid
             if (ModelState.IsValid && obj.Id > 0)
             {
-                _db.Villas.Update(obj); // Adding the villa to the database
-                _db.SaveChanges(); // Saving the changes to the database
+                _villaRepo.Update(obj); // Adding the villa to the database
+                _villaRepo.Save(); // Saving the changes to the database
                 TempData["Success"] = "Villa Updated Successfully";
                 return RedirectToAction(nameof(Index)); // Redirecting to the Index action method
             }
@@ -87,7 +88,7 @@ namespace whiteLagoon.Web.Controllers
         public IActionResult Delete(int villaId)
         {
             // Getting the villa with the specified id from the database
-            Villa? obj = _db.Villas.FirstOrDefault((u => u.Id == villaId));
+            Villa? obj =_villaRepo.Get((u => u.Id == villaId));
             // Checking if the villa is null
             if (obj is null)
             {
@@ -99,12 +100,12 @@ namespace whiteLagoon.Web.Controllers
         [HttpPost]
         public IActionResult Delete(Villa obj)
         {
-            Villa? objFromDb = _db.Villas.FirstOrDefault((u => u.Id == obj.Id));
+            Villa? objFromDb = _villaRepo.Get((u => u.Id == obj.Id));
             // Checking if the ModelState is valid
             if (objFromDb is not null)
             {
-                _db.Villas.Remove(objFromDb); // Remove the villa from the database
-                _db.SaveChanges(); // Saving the changes to the database
+                _villaRepo.Remove(objFromDb); // Remove the villa from the database
+                _villaRepo.Save(); // Saving the changes to the database
                 TempData["Success"] = "Villa Deleted Successfully";
                 return RedirectToAction(nameof(Index)); // Redirecting to the Index action method
             }
