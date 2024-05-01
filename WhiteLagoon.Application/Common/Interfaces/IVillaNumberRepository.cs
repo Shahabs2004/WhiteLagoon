@@ -8,9 +8,8 @@ using WhiteLagoon.Domain.Entities;
 
 namespace WhiteLagoon.Application.Common.Interfaces
 {
-    public interface IVillaRepository :IRepository<Villa>
+    public interface IVillaNumberRepository :IRepository<VillaNumber>
     {
-        void Update(Villa entity);
-        void Save();
+        void Update(VillaNumber entity);
     }
 }

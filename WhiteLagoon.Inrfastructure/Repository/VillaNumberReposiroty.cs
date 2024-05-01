@@ -11,25 +11,20 @@ using WhiteLagoon.Inrfastructure.Data;
 
 namespace WhiteLagoon.Inrfastructure.Repository
 {
-    public class VillaReposiroty:Repository<Villa>, IVillaRepository
+    public class VillaNumberReposiroty:Repository<VillaNumber>, IVillaNumberRepository
 
     {
         // Declaring a private readonly field of type ApplicationDbContext
         private readonly ApplicationDbContext _db;
 
         // Defining the constructor for the VillaController class
-        public VillaReposiroty(ApplicationDbContext db) :base(db)
+        public VillaNumberReposiroty(ApplicationDbContext db) :base(db)
         {
             _db = db; // Assigning the passed in db value to the _db field
         }
-        public void Update(Villa entity)
+        public void Update(VillaNumber entity)
         {
-            _db.Update(entity);
-        }
-
-        public void Save()
-        {
-            _db.SaveChanges();
+            _db.VillaNumbers.Update(entity);
         }
     }
 }
