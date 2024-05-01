@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace WhiteLagoon.Domain.Entities
 {
@@ -31,9 +33,9 @@ namespace WhiteLagoon.Domain.Entities
         [Display(Name = "Number of Bedrooms")]
         [Range(1, 10, ErrorMessage = "The Number of Bedrooms must be between 1 and 10.")]
         public int Occupancy { get; set; }
-
+        [NotMapped]
+        public IFormFile? Image { get; set; }
         [Display(Name = "Image Url")]
-        [Url(ErrorMessage = "The Image Url is not a valid URL.")]
         public string? ImageUrl { get; set; }
 
         public DateTime? Created_Date { get; set; }

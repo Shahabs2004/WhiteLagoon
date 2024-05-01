@@ -10,11 +10,13 @@ namespace whiteLagoon.Web.Controllers
     {
         // Declaring a private readonly field of type ApplicationDbContext
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
         // Defining the constructor for the VillaController class
-        public VillaController(IUnitOfWork unitOfWork)
+        public VillaController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // Defining the Index action method
@@ -43,8 +45,22 @@ namespace whiteLagoon.Web.Controllers
             // Checking if the ModelState is valid
             if (ModelState.IsValid)
             {
+                if (obj.Image != null)
+                {
+                    string fileName = Guid.NewGuid().ToString()+Path.GetExtension(obj.Image.FileName);
+                    string imagePath = Path.Combine(_webHostEnvironment.WebRootPath, @"img\VillaImage");
+                    using (var fileStream = new FileStream(Path.Combine(imagePath, fileName), FileMode.Create))
+                    {
+                        obj.Image.CopyTo(fileStream);
+                        obj.ImageUrl = @"\img\VillaImage\"+fileName;
+                    }
+                }
+                else // If the image is null
+                {
+                    obj.ImageUrl = "https://placehold.co/600*400"; // Setting the image to noimage.png
+                }
                 _unitOfWork.Villa.Add(obj); // Adding the villa to the database
-                _unitOfWork.Villa.Save(); // Saving the changes to the database
+                _unitOfWork.Save(); // Saving the changes to the database
                 TempData["Success"] = "Villa Created Successfully";
                 return RedirectToAction(nameof(Index)); // Redirecting to the Index action method
             }
@@ -74,6 +90,25 @@ namespace whiteLagoon.Web.Controllers
             // Checking if the ModelState is valid
             if (ModelState.IsValid && obj.Id > 0)
             {
+                if (obj.Image != null)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(obj.Image.FileName);
+                    string imagePath = Path.Combine(_webHostEnvironment.WebRootPath, @"img\VillaImage");
+                    if (!string.IsNullOrEmpty((obj.ImageUrl)))
+                    {
+                       var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, obj.ImageUrl.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+                    using (var fileStream = new FileStream(Path.Combine(imagePath, fileName), FileMode.Create))
+                    {
+                        obj.Image.CopyTo(fileStream);
+                        obj.ImageUrl = @"\img\VillaImage\" + fileName;
+                    }
+                }
+
                 _unitOfWork.Villa.Update(obj); // Adding the villa to the database
                 _unitOfWork.Villa.Save(); // Saving the changes to the database
                 TempData["Success"] = "Villa Updated Successfully";
@@ -103,6 +138,14 @@ namespace whiteLagoon.Web.Controllers
             // Checking if the ModelState is valid
             if (objFromDb is not null)
             {
+                if (!string.IsNullOrEmpty((objFromDb.ImageUrl)))
+                {
+                    var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, objFromDb.ImageUrl.TrimStart('\\'));
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+                }
                 _unitOfWork.Villa.Remove(objFromDb); // Remove the villa from the database
                 _unitOfWork.Villa.Save(); // Saving the changes to the database
                 TempData["Success"] = "Villa Deleted Successfully";

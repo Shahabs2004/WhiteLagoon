@@ -9,37 +9,38 @@
         </div>
     </div>
     <div class="card-body border p-4">
-        <form method="post" class="row">
+        <form method="post" class="row" enctype="multipart/form-data">
             <div class="p-3">
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-floating py-1 col-12">
-                    <input type="text" asp-for="Name" class="form-control border shadow" id="Name" name="Name" required>
+                    <input type="text" asp-for="Name" class="form-control border shadow" required>
                     <label asp-for="Name" class="ms-2"></label>
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-1 col-12">
-                    <textarea asp-for="Description" class="form-control border shadow" id="Description" name="Description"></textarea>
+                    <textarea asp-for="Description" class="form-control border shadow"></textarea>
                     <label asp-for="Description" class="ms-2"></label>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-1 col-12">
-                    <input asp-for="Price" type="number" class="form-control border shadow" id="Price" name="Price" required>
+                    <input asp-for="Price" type="number" class="form-control border shadow"  required>
                     <label asp-for="Price" class="ms-2"></label>
                     <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-1 col-12">
-                    <input asp-for="Sqft" type="number" class="form-control border shadow" id="Sqft" name="Sqft" required>
+                    <input asp-for="Sqft" type="number" class="form-control border shadow" required>
                     <label asp-for="Sqft" class="ms-2"></label>
                     <span asp-validation-for="Sqft" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-1 col-12">
-                    <input asp-for="Occupancy" type="number" class="form-control border shadow" id="Occupancy" name="Occupancy" required>
+                    <input asp-for="Occupancy" type="number" class="form-control border shadow"  required>
                     <label asp-for="Occupancy" class="ms-2"></label>
                     <span asp-validation-for="Occupancy" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-1 col-12">
-                    <input asp-for="ImageUrl" type="text" class="form-control border shadow" id="ImageUrl" name="ImageUrl">
-                    <label asp-for="ImageUrl" class="ms-2"></label>
+                    <input asp-for="ImageUrl" hidden type="text" class="form-control border shadow">
+                    <input asp-for="Image" class="form-control border shadow">
+                    <label asp-for="Image" class="ms-2"></label>
                     <span asp-validation-for="ImageUrl" class="text-danger"></span>
                 </div>
                 <div class="row pt-2">
