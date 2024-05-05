@@ -12,6 +12,7 @@ namespace WhiteLagoon.Inrfastructure.Repository
     {
         private readonly ApplicationDbContext _db;
         public IVillaRepository Villa { get; private set; }
+        public IAmenityRepository Amenity { get; }
         public IVillaNumberRepository VillaNumber { get; }
         public void Save()
         {
@@ -21,6 +22,7 @@ namespace WhiteLagoon.Inrfastructure.Repository
         {
             _db = db;
             Villa = new VillaReposiroty(_db);
+            Amenity = new AmenityReposiroty(_db);
             VillaNumber = new VillaNumberReposiroty(_db);
 
         }
