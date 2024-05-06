@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WhiteLagoon.Inrfastructure.Data;
 
@@ -11,9 +12,11 @@ using WhiteLagoon.Inrfastructure.Data;
 namespace WhiteLagoon.Inrfastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240506081709_AddIdentityToDb")]
+    partial class AddIdentityToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,11 +89,6 @@ namespace WhiteLagoon.Inrfastructure.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(21)
-                        .HasColumnType("nvarchar(21)");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -142,10 +140,6 @@ namespace WhiteLagoon.Inrfastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -370,38 +364,38 @@ namespace WhiteLagoon.Inrfastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Created_Date = new DateTime(2024, 5, 6, 11, 59, 5, 101, DateTimeKind.Local).AddTicks(2367),
+                            Created_Date = new DateTime(2024, 5, 6, 11, 47, 7, 987, DateTimeKind.Local).AddTicks(1331),
                             Description = "Luxurious villa fit for royalty.",
                             ImageUrl = "https://placehold.co/600x400",
                             Name = "Royal Villa",
                             Occupancy = 4,
                             Price = 200.0,
                             Sqft = 550,
-                            Update_Date = new DateTime(2024, 5, 6, 11, 59, 5, 101, DateTimeKind.Local).AddTicks(2377)
+                            Update_Date = new DateTime(2024, 5, 6, 11, 47, 7, 987, DateTimeKind.Local).AddTicks(1343)
                         },
                         new
                         {
                             Id = 2,
-                            Created_Date = new DateTime(2024, 5, 6, 11, 59, 5, 101, DateTimeKind.Local).AddTicks(2379),
+                            Created_Date = new DateTime(2024, 5, 6, 11, 47, 7, 987, DateTimeKind.Local).AddTicks(1345),
                             Description = "Exquisite villa with a private pool.",
                             ImageUrl = "https://placehold.co/600x401",
                             Name = "Premium Pool Villa",
                             Occupancy = 4,
                             Price = 300.0,
                             Sqft = 550,
-                            Update_Date = new DateTime(2024, 5, 6, 11, 59, 5, 101, DateTimeKind.Local).AddTicks(2379)
+                            Update_Date = new DateTime(2024, 5, 6, 11, 47, 7, 987, DateTimeKind.Local).AddTicks(1345)
                         },
                         new
                         {
                             Id = 3,
-                            Created_Date = new DateTime(2024, 5, 6, 11, 59, 5, 101, DateTimeKind.Local).AddTicks(2381),
+                            Created_Date = new DateTime(2024, 5, 6, 11, 47, 7, 987, DateTimeKind.Local).AddTicks(1347),
                             Description = "Opulent villa with a spacious pool.",
                             ImageUrl = "https://placehold.co/600x402",
                             Name = "Luxury Pool Villa",
                             Occupancy = 4,
                             Price = 400.0,
                             Sqft = 750,
-                            Update_Date = new DateTime(2024, 5, 6, 11, 59, 5, 101, DateTimeKind.Local).AddTicks(2381)
+                            Update_Date = new DateTime(2024, 5, 6, 11, 47, 7, 987, DateTimeKind.Local).AddTicks(1347)
                         });
                 });
 
@@ -453,20 +447,6 @@ namespace WhiteLagoon.Inrfastructure.Migrations
                             Villa_Number = 302,
                             VillaId = 3
                         });
-                });
-
-            modelBuilder.Entity("WhiteLagoon.Domain.Entities.ApplicationUser", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
