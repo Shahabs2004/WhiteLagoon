@@ -35,5 +35,10 @@ namespace whiteLagoon.Web.Controllers
         {
             return View();
         }
+
+        public IActionResult GetVillasByDate()
+        {
+            return View();
+        }
     }
 }

@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WhiteLagoon.Application.Common.Interfaces;
+using WhiteLagoon.Application.Common.Utility;
 using WhiteLagoon.Domain.Entities;
 using WhiteLagoon.Inrfastructure.Data;
 
 namespace whiteLagoon.Web.Controllers
 {
+    [Authorize]
     // Defining the VillaController class which inherits from the Controller class
     public class VillaController : Controller
     {
