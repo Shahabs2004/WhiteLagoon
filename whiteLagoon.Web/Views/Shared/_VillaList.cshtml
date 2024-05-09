@@ -26,9 +26,9 @@
                 <div class="col-12">
                     <div class="row pb-3 pt-2">
                         <div class="col-4">
-                            @if (Model.CheckInDate > DateOnly.FromDateTime(DateTime.Now))
+                                @if (Model.CheckInDate > DateOnly.FromDateTime(DateTime.Now))
                             {
-                                //if (villa.IsAvailable)
+                                if (villa.IsAvailable)
                                 {
                                         <a xasp-controller="Booking" xasp-action="FinalizeBooking" 
                                         asp-route-villaId="@villa.Id" asp-route-checkInDate="@Model.CheckInDate"
@@ -36,10 +36,8 @@
                                         class="btn btn-success form-control btn-block">
                                         Book
                                         </a>
-
-                                        <!--Fix-->
                                 }
-                                //else
+                                else
                                 {
                                     <a class="btn btn-outline-danger disabled form-control btn-block">
                                         Sold Out

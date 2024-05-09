@@ -26,6 +26,35 @@ namespace whiteLagoon.Web.Controllers
             return View(homeVM);
         }
 
+        [HttpPost]
+        public IActionResult Index(HomeVM homeVM)
+        {
+            homeVM.villaList = _unitOfWork.Villa.GetAll(includeProperties: "VillaAmenity");
+
+            return View(homeVM);
+        }
+
+        [HttpPost]
+        public IActionResult GetVillasByDate(int nights, DateOnly checkInDate)
+        {
+            var villalist = _unitOfWork.Villa.GetAll(includeProperties: "VillaAmenity").ToList();
+            foreach (var villa in villalist)
+            {
+                if (villa.Id % 2 == 0)
+                {
+                    villa.IsAvailable = false;
+
+                }
+            }
+            HomeVM homeVM = new()
+            {
+                villaList = villalist,
+                Nights = nights,
+                CheckInDate = checkInDate
+            };
+            return PartialView("_VillaList", homeVM);
+        }
+
         public IActionResult Privacy()
         {
             return View();
@@ -36,9 +65,5 @@ namespace whiteLagoon.Web.Controllers
             return View();
         }
 
-        public IActionResult GetVillasByDate()
-        {
-            return View();
-        }
     }
 }
