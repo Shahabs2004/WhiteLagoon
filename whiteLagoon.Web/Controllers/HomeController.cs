@@ -26,13 +26,14 @@ namespace whiteLagoon.Web.Controllers
             return View(homeVM);
         }
 
-        [HttpPost]
+        // ???? ????? ?÷? ??? ???? ??????.
+        /*[HttpPost]
         public IActionResult Index(HomeVM homeVM)
         {
             homeVM.villaList = _unitOfWork.Villa.GetAll(includeProperties: "VillaAmenity");
 
             return View(homeVM);
-        }
+        }*/
 
         [HttpPost]
         public IActionResult GetVillasByDate(int nights, DateOnly checkInDate)

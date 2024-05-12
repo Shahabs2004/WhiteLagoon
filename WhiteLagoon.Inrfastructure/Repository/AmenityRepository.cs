@@ -11,11 +11,11 @@ using WhiteLagoon.Inrfastructure.Data;
 
 namespace WhiteLagoon.Inrfastructure.Repository
 {
-    public class AmenityReposiroty : Repository<Amenity>, IAmenityRepository
+    public class AmenityRepository : Repository<Amenity>, IAmenityRepository
 
     {
         private readonly ApplicationDbContext _db;
-        public AmenityReposiroty(ApplicationDbContext db) :base(db)
+        public AmenityRepository(ApplicationDbContext db) :base(db)
         {
             _db = db;
         }
