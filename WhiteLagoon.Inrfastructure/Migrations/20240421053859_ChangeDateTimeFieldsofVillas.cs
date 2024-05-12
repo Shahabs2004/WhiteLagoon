@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace WhiteLagoon.Inrfastructure.Migrations
+namespace WhiteLagoon.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class ChangeDateTimeFieldsofVillas : Migration

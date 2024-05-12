@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using WhiteLagoon.Domain.Entities ;
+using WhiteLagoon.Domain.Entities;
 
-namespace WhiteLagoon.Inrfastructure.Data
+namespace WhiteLagoon.Infrastructure.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
@@ -19,7 +14,7 @@ namespace WhiteLagoon.Inrfastructure.Data
         public DbSet<Villa> Villas { get; set; }
         public DbSet<VillaNumber> VillaNumbers { get; set; }
         public DbSet<Amenity> Amenities { get; set; }
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<ApplicationUser> Users { get; set; }
         public DbSet<Booking> Bookings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

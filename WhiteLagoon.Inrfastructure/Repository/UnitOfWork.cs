@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WhiteLagoon.Application.Common.Interfaces;
-using WhiteLagoon.Inrfastructure.Data;
+﻿using WhiteLagoon.Application.Common.Interfaces;
+using WhiteLagoon.Infrastructure.Data;
+using WhiteLagoon.Infrastructure.Repository;
 
-namespace WhiteLagoon.Inrfastructure.Repository
+namespace WhiteLagoon.Infrastructure.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {

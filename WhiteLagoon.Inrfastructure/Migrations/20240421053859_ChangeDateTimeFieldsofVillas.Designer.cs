@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WhiteLagoon.Inrfastructure.Data;
+using WhiteLagoon.Infrastructure.Data;
 
 #nullable disable
 
-namespace WhiteLagoon.Inrfastructure.Migrations
+namespace WhiteLagoon.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20240421053859_ChangeDateTimeFieldsofVillas")]

@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhiteLagoon.Domain", "White
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhiteLagoon.Application", "WhiteLagoon.Application\WhiteLagoon.Application.csproj", "{F31DD27F-BC6C-4332-86B0-3F6970A3D9A8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhiteLagoon.Inrfastructure", "WhiteLagoon.Inrfastructure\WhiteLagoon.Inrfastructure.csproj", "{511622E1-8DC5-4284-9D83-45D64EC9E9F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhiteLagoon.Infrastructure", "WhiteLagoon.Inrfastructure\WhiteLagoon.Infrastructure.csproj", "{511622E1-8DC5-4284-9D83-45D64EC9E9F0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B6E06A70-A35D-486D-A3E4-94158104066D}"
 	ProjectSection(SolutionItems) = preProject

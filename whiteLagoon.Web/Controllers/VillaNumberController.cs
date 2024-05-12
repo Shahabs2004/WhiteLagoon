@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WhiteLagoon.Application.Common.Interfaces;
 using WhiteLagoon.Domain.Entities;
-using WhiteLagoon.Inrfastructure.Data;
 using whiteLagoon.Web.ViewModels;
 
 namespace whiteLagoon.Web.Controllers
