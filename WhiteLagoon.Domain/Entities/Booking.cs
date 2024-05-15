@@ -9,7 +9,7 @@ public class Booking
 
     [Required] public string UserId { get; set; }
 
-    [ForeignKey("UserId")] public ApplicationUser User { get; set; }
+    [ForeignKey("UserId")] public ApplicationUser Users { get; set; }
 
     [Required] public int VillaId { get; set; }
 
@@ -37,8 +37,10 @@ public class Booking
     public string? StripePaymentIntentId { get; set; }
     public string? StripePaymentMethodId { get; set; }
 
-    public DateTime ActualCheckInDate  { get; set; }
-    public DateTime ActualCheckOutDate { get; set; }
-    public int        VillaNumber                  { get; set; }
+    public DateTime          ActualCheckInDate  { get; set; }
+    public DateTime          ActualCheckOutDate { get; set; }
+    public int               VillaNumber        { get; set; }
+    [NotMapped]
+    public List<VillaNumber> VillaNumbers       { get; set; }  
 
 }

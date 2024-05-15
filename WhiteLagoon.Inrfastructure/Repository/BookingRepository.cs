@@ -20,19 +20,23 @@ public class BookingRepository : Repository<Booking>, IBookingRepository
         _db.Bookings.Update(entity);
     }
 
-    public void UpdateStatus(int bookingId, string bookingStatus)
+    public void UpdateStatus(int bookingId, string bookingStatus,int villaNumber = 0)
     {
         var bookingFromDb = _db.Bookings.FirstOrDefault(u => u.Id == bookingId);
         if (bookingFromDb is not null)
         {
             bookingFromDb.Status = bookingStatus;
-            if (bookingStatus == SD.StatusCheckedIn) bookingFromDb.ActualCheckInDate = DateTime.Now;
+            if (bookingStatus == SD.StatusCheckedIn)
+            {
+                bookingFromDb.VillaNumber = villaNumber;
+                bookingFromDb.ActualCheckInDate = DateTime.Now;
+            }
 
             if (bookingStatus == SD.StatusCompleted) bookingFromDb.ActualCheckOutDate = DateTime.Now;
         }
     }
 
-    public void UpdayeStripePaymentID(int bookingId, string sessionId, string paymentIntentId)
+    public void UpdateStripePaymentID(int bookingId, string sessionId, string paymentIntentId)
     {
         var bookingFromDb = _db.Bookings.FirstOrDefault(u => u.Id == bookingId);
         if (bookingFromDb is not null)

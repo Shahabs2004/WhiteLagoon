@@ -1,35 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using WhiteLagoon.Domain.Entities;
 
-namespace WhiteLagoon.Application.Common.Utility
+namespace WhiteLagoon.Application.Common.Utility;
+
+//SD Stands for Static Details
+public static class SD
 {
-    //SD Stands for Static Details
-    public static class SD
+    public const string Role_Customer = "Customer";
+    public const string Role_Admin = "Admin";
+
+    public const string StatusPending = "Pending";
+    public const string StatusApproved = "Approved";
+    public const string StatusCheckedIn = "CheckedIn";
+    public const string StatusCompleted = "Completed";
+    public const string StatusCancelled = "Cancelled";
+    public const string StatusRefunded = "Refunded";
+
+    public static int VillaRoomsAvailable_Count(int villaId,
+                                                List<VillaNumber> villaNumberlist,
+                                                DateOnly checkInDate,
+                                                int nights,
+                                                List<Booking> bookings)
     {
-        public const string Role_Admin = "Admin";
-        public const string Role_User = "User";
-        public const string Role_Employee = "Employee";
-        public const string Role_Customer = "Customer";
-        public const string StatusPending = "Pending";
-        public const string StatusApproved = "Approved";
-        public const string StatusInProcess = "InProcess";
-        public const string StatusCompleted = "Completed";
-        public const string StatusCancelled = "Cancelled";
-        public const string StatusRefunded = "Refunded";
-        public const string StatusRejected = "Rejected";
-        public const string StatusCheckedIn = "Approved";
-        public const string PaymentStatusPending = "Pending";
-        public const string PaymentStatusApproved = "Approved";
-        public const string PaymentStatusDelayed = "Delayed";
-        public const string PaymentStatusRejected = "Rejected";
-        public const string PaymentStatusRefunded = "Refunded";
-        public const string PaymentStatusCancelled = "Cancelled";
-        public const string PaymentStatusFailed = "Failed";
-        public const string PaymentStatusSuccess = "Success";
+        List<int> bookingIndate = new();
+        var roomsInVilla = villaNumberlist.Where(x => x.VillaId == villaId).Count();
+        var finalAvailableRoomForAllnights = int.MaxValue;
+        for (var i = 0; i < nights; i++)
+        {
+            var villasBooked = bookings.Where(u => u.CheckInDate <= checkInDate.AddDays(i)
+                                                && u.CheckOutDate > checkInDate.AddDays(i) && u.VillaId == villaId);
+            foreach (var booking in villasBooked)
+                if (!bookingIndate.Contains(booking.Id))
+                    bookingIndate.Add(booking.Id);
+            var totalAvailableRooms = roomsInVilla - bookingIndate.Count;
+            if (totalAvailableRooms == 0)
+            {
+                return 0;
+            }
 
+            if (finalAvailableRoomForAllnights > totalAvailableRooms)
+                finalAvailableRoomForAllnights = totalAvailableRooms;
+        }
 
+        return finalAvailableRoomForAllnights;
     }
 }
