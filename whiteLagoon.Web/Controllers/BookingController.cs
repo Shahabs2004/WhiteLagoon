@@ -115,10 +115,47 @@ public class BookingController : Controller
         Booking bookingFromDb = _unitOfWork.Booking.Get(u => u.Id == bookingId, includeProperties: "Users,Villa");
         if (bookingFromDb.VillaNumber ==0 && bookingFromDb.Status == SD.StatusApproved)
         {
-            
+            var availableVillaNumber = AssignAvailableVillaNumberByVilla(bookingFromDb.VillaId);
+            bookingFromDb.VillaNumbers =
+                _unitOfWork.VillaNumber.GetAll(u => u.VillaId == bookingFromDb.VillaId && availableVillaNumber.Any(x=>x==u.Villa_Number)).ToList();
         }
         return View(bookingFromDb);
     }
+
+
+
+    [HttpPost]
+    [Authorize(Roles = SD.Role_Admin)]
+    public IActionResult CheckIn(Booking booking)
+    {
+        _unitOfWork.Booking.UpdateStatus(booking.Id, SD.StatusCheckedIn, booking.VillaNumber);
+        _unitOfWork.Save();
+        TempData["Success"]= "Booking Checked In Successfully";
+        return RedirectToAction(nameof(BookingDetails),new{bookingId =booking.Id});
+    }
+
+    [HttpPost]
+    [Authorize(Roles = SD.Role_Admin)]
+    public IActionResult CheckOut(Booking booking)
+    {
+        _unitOfWork.Booking.UpdateStatus(booking.Id, SD.StatusCompleted, booking.VillaNumber);
+        _unitOfWork.Save();
+        TempData["Success"] = "Booking Checked Out Successfully";
+        return RedirectToAction(nameof(BookingDetails), new { bookingId = booking.Id });
+    }
+
+    [HttpPost]
+    [Authorize(Roles = SD.Role_Admin)]
+    public IActionResult CancelBooking(Booking booking)
+    {
+        _unitOfWork.Booking.UpdateStatus(booking.Id, SD.StatusCancelled, booking.VillaNumber);
+        _unitOfWork.Save();
+        TempData["Success"] = "Booking Cancelled Successfully";
+        return RedirectToAction(nameof(BookingDetails), new { bookingId = booking.Id });
+    }
+
+
+
 
     #region API Calls
     [HttpGet]
@@ -149,7 +186,7 @@ public class BookingController : Controller
     }
     #endregion
 
-    private List<int> AssignAvailableVillaNumberByVilla(int villaId, DateOnly checkInDate, int nights)
+    private List<int> AssignAvailableVillaNumberByVilla(int villaId)
     {
         List<int> availableVillaNumbers = new();
         var villaNumbers = _unitOfWork.VillaNumber.GetAll(u => u.VillaId == villaId);
