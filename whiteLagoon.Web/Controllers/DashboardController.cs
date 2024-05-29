@@ -66,7 +66,7 @@ namespace whiteLagoon.Web.Controllers
                                     };
             return Json(pieChartVM);
         }
-
+        //Under Deploy
         public async Task<IActionResult> GetMemberAndBookingLineChartData()
         {
             var bookingData =
