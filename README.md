@@ -1,3 +1,4 @@
+as i am Learning this Course this Project Will Complete along side
 What am I going to get from this course?
 Learn structure of ASP NET Core Project
 Learn identity security of ASP NET Core using MVC
