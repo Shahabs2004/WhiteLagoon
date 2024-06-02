@@ -34,6 +34,7 @@ builder.Services.Configure<IdentityOptions>(option =>
 });
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
+builder.Services.AddScoped<IVillaService, VillaService>();
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 
 var app = builder.Build();

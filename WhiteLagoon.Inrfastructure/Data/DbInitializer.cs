@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WhiteLagoon.Application.Common.Interfaces;
 using WhiteLagoon.Application.Common.Utility;
@@ -17,9 +12,12 @@ namespace WhiteLagoon.Infrastructure.Data
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public DbInitializer(ApplicationDbContext db)
+        public DbInitializer(ApplicationDbContext db,UserManager<ApplicationUser> userManager,RoleManager<IdentityRole> roleManager)
         {
             _db = db;
+            _roleManager = roleManager;
+            _userManager = userManager;
+
         }
         public void Initialize()
         {
@@ -41,7 +39,7 @@ namespace WhiteLagoon.Infrastructure.Data
                                            NormalizedUserName = "SHAHAB ADMIN",
                                            NormalizedEmail = "ADMIN@HI2.IN",
                                            PhoneNumber = "09177388400"
-                                           },"az*96321");
+                                           },"az*96321").GetAwaiter().GetResult();
                  ApplicationUser user = _db.Users.FirstOrDefault(u => u.NormalizedEmail == "ADMIN@HI2.IN");
                  _userManager.AddToRoleAsync(user, SD.Role_Admin).GetAwaiter().GetResult();
                  }
