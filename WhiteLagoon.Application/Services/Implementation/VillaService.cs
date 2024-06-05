@@ -127,5 +127,17 @@ namespace WhiteLagoon.Application.Services.Implementation
 
             return villaList;
         }
+
+        public bool IsVillaAvailableByDate(int villaId, int nights, DateOnly checkInDate)
+        {
+            var villaNumberList = _unitOfWork.VillaNumber.GetAll().ToList();
+            var bookedVillas = _unitOfWork.Booking
+                .GetAll(u => u.Status == SD.StatusApproved || u.Status == SD.StatusCheckedIn).ToList();
+
+            var roomAvailable =
+                SD.VillaRoomsAvailable_Count(villaId, villaNumberList, checkInDate, nights, bookedVillas);
+            return roomAvailable > 0;
+
+        }
     }
 }

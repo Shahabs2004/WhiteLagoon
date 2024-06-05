@@ -8,4 +8,10 @@ public interface IBookingService
     Booking GetBookingById(int bookingId);
     IEnumerable<Booking> getAllBookings(string userId = "", string? statusFilterList = "");
 
+    void UpdateStatus(int bookingId, string orderStatus, int villaNumber);
+    void UpdateStripePaymentID(int id, string sessionId, string paymentintentId);
+
+
+    public IEnumerable<int> GetCheckedinVillaNumbers(int villaId);
+
 }

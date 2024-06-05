@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WhiteLagoon.Application.Common.Interfaces;
+using WhiteLagoon.Application.Common.Utility;
 using WhiteLagoon.Application.Services.Interface;
 using WhiteLagoon.Domain.Entities;
 
@@ -51,6 +52,45 @@ namespace WhiteLagoon.Application.Services.Implementation
                 }
             }
             return _unitOfWork.Booking.GetAll(includeProperties: "User,Villa");
+        }
+
+        public void UpdateStatus(int bookingId, string bookingStatus, int villaNumber = 0)
+        {
+            var bookingFromDb =_unitOfWork.Booking.Get(u => u.Id == bookingId);
+            if (bookingFromDb is not null)
+            {
+                bookingFromDb.Status = bookingStatus;
+                if (bookingStatus == SD.StatusCheckedIn)
+                {
+                    bookingFromDb.VillaNumber = villaNumber;
+                    bookingFromDb.ActualCheckInDate = DateTime.Now;
+                }
+
+                if (bookingStatus == SD.StatusCompleted) bookingFromDb.ActualCheckOutDate = DateTime.Now;
+            }
+        }
+
+        public void UpdateStripePaymentID(int bookingId, string sessionId, string paymentIntentId)
+        {
+            var bookingFromDb = _unitOfWork.Booking.Get(u => u.Id == bookingId);
+            if (bookingFromDb is not null)
+            {
+                if (!string.IsNullOrEmpty(sessionId)) bookingFromDb.StripeSessionId = sessionId;
+                if (!string.IsNullOrEmpty(paymentIntentId))
+                {
+                    bookingFromDb.StripePaymentIntentId = paymentIntentId;
+                    bookingFromDb.PaymentDate = DateTime.Now;
+                    bookingFromDb.IsPaymentSuccessful = true;
+                }
+            }
+        }
+
+        public IEnumerable<int> GetCheckedinVillaNumbers(int villaId)
+        {
+
+            return _unitOfWork.Booking.GetAll(u => u.VillaId == villaId && u.Status == SD.StatusCheckedIn)
+                .Select(u => u.VillaNumber);
+
         }
     }
 }
