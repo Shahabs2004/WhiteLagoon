@@ -2,23 +2,20 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace WhiteLagoon.Domain.Entities
 {
     public class Villa
     {
+        [Key]
         public int Id { get; set; }
 
         [Display(Name = "Villa Name")]
         [Required(ErrorMessage = "The Villa Name is required.")]
         [StringLength(100, ErrorMessage = "The Villa Name cannot exceed 100 characters.")]
-        [MinLength(5)]
-        public required string Name { get; set; }
+        [MinLength(5, ErrorMessage = "The Villa Name must be at least 5 characters long.")]
+        public string Name { get; set; }
 
         [Display(Name = "Villa Description")]
         public string? Description { get; set; }
@@ -34,17 +31,21 @@ namespace WhiteLagoon.Domain.Entities
         [Display(Name = "Number of Bedrooms")]
         [Range(1, 10, ErrorMessage = "The Number of Bedrooms must be between 1 and 10.")]
         public int Occupancy { get; set; }
-        [NotMapped]
-        public IFormFile? Image { get; set; }
+
         [Display(Name = "Image Url")]
         public string? ImageUrl { get; set; }
 
+        [NotMapped]
+        public IFormFile? Image { get; set; }
+
         public DateTime? Created_Date { get; set; }
         public DateTime? Update_Date { get; set; }
-        [ValidateNever]
-        public IEnumerable<Amenity> VillaAmenity { get; set; }
 
         [NotMapped]
         public bool IsAvailable { get; set; } = true;
+
+        [NotMapped]
+        [Display(Name = "Villa Amenities")]
+        public IEnumerable<Amenity> VillaAmenity { get; set; }
     }
 }
